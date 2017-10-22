@@ -16,6 +16,8 @@ library("Rd2md")
 setwd("C:\\Users\\Camult\\Documents\\GitHub\\ezCV")
 Rd2markdown(rdfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\man\\GBLUP_CV.Rd",
             outfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\README.md")
+Rd2markdown(rdfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\man\\cvBGBLUP.Rd",
+            outfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\README.md", append=TRUE)
 Rd2markdown(rdfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\man\\RRBLUP_CV.Rd",
             outfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\README.md", append=TRUE)
 Rd2markdown(rdfile="C:\\Users\\Camult\\Documents\\GitHub\\ezCV\\man\\cvBayes.Rd",

@@ -139,3 +139,28 @@ cvBayes <- function(Y, B, X, varE) {
     .Call('_ezCV_cvBayes', PACKAGE = 'ezCV', Y, B, X, varE)
 }
 
+#' @title Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+#' 
+#' @description Performs a Leave-One-Out Cross-Validation Without Doing Cross-Validation using Gibbs Sampling results.
+#'
+#' @param n is the number of observations. If length(n) > 1, the length is taken to be the number required.
+#' @param Y is a phenotypic matrix with n rows and 1 column.
+#' @param g is vector with the BLUP solution for the genetic values.
+#' @param K is a relationship matrix with m rows and m columns.
+#' @param Vg is the posterior mean of the genetic variance.
+#' @param Ve is the posterior mean of the residual variance.
+#' 
+#' @examples
+#' ## Not to run ##
+#' 
+#' ## cvBGBLUP(n=nSamp, Y=y, g=gHat, K=G, Vg=gVAR, Ve=eVAR)
+#'
+#' ## End(Not run)
+#' 
+#' @useDynLib ezCV
+#'  
+#' @export cvBGBLUP
+cvBGBLUP <- function(n, Y, g, K, Vg, Ve) {
+    .Call('_ezCV_cvBGBLUP', PACKAGE = 'ezCV', n, Y, g, K, Vg, Ve)
+}
+

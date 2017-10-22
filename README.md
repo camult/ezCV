@@ -1,4 +1,4 @@
-# `GBLUP_CV`: GBLUP and Leave-one-out Cross-validation
+# `GBLUP_CV`: GBLUP and Leave-one-out Cross-validation.
 
 ## Description
 
@@ -44,6 +44,43 @@ Argument      |Description
  ## Not to run ##
  
  ## GBLUP_CV(Phen ~ Effect, data=Data, K=G)
+ 
+ ## End(Not run)
+ 
+ ``` 
+
+# `cvBGBLUP`: Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+
+## Description
+
+
+ Performs a Leave-One-Out Cross-Validation Without Doing Cross-Validation using Gibbs Sampling results.
+
+
+## Usage
+
+```r
+cvBGBLUP(n, Y, g, K, Vg, Ve)
+```
+
+
+## Arguments
+
+Argument      |Description
+------------- |----------------
+```n```     |     is the number of observations. If length(n) > 1, the length is taken to be the number required.
+```Y```     |     is a phenotypic matrix with n rows and 1 column.
+```g```     |     is vector with the BLUP solution for the genetic values.
+```K```     |     is a relationship matrix with m rows and m columns.
+```Vg```     |     is the posterior mean of the genetic variance.
+```Ve```     |     is the posterior mean of the residual variance.
+
+## Examples
+
+```r 
+ ## Not to run ##
+ 
+ ## cvBGBLUP(n=nSamp, Y=y, g=gHat, K=G, Vg=gVAR, Ve=eVAR)
  
  ## End(Not run)
  

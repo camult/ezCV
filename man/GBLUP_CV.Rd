@@ -2,7 +2,7 @@
 % Please edit documentation in R/GBLUP_CV.R
 \name{GBLUP_CV}
 \alias{GBLUP_CV}
-\title{GBLUP and Leave-one-out Cross-validation}
+\title{GBLUP and Leave-one-out Cross-validation.}
 \usage{
 GBLUP_CV(formula, data, K, CV = TRUE, folds = NULL, weights = NULL)
 }

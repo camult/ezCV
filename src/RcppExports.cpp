@@ -90,6 +90,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cvBGBLUP
+arma::mat cvBGBLUP(int n, arma::vec Y, arma::vec g, arma::mat K, double Vg, double Ve);
+RcppExport SEXP _ezCV_cvBGBLUP(SEXP nSEXP, SEXP YSEXP, SEXP gSEXP, SEXP KSEXP, SEXP VgSEXP, SEXP VeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type g(gSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type K(KSEXP);
+    Rcpp::traits::input_parameter< double >::type Vg(VgSEXP);
+    Rcpp::traits::input_parameter< double >::type Ve(VeSEXP);
+    rcpp_result_gen = Rcpp::wrap(cvBGBLUP(n, Y, g, K, Vg, Ve));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ezCV_MME", (DL_FUNC) &_ezCV_MME, 4},
@@ -98,6 +114,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ezCV_RRBLUP", (DL_FUNC) &_ezCV_RRBLUP, 3},
     {"_ezCV_LOOrrDG", (DL_FUNC) &_ezCV_LOOrrDG, 4},
     {"_ezCV_cvBayes", (DL_FUNC) &_ezCV_cvBayes, 4},
+    {"_ezCV_cvBGBLUP", (DL_FUNC) &_ezCV_cvBGBLUP, 6},
     {NULL, NULL, 0}
 };
 

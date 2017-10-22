@@ -139,7 +139,7 @@ cvBayes <- function(Y, B, X, varE) {
     .Call('_ezCV_cvBayes', PACKAGE = 'ezCV', Y, B, X, varE)
 }
 
-#' @title Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+#' @title Cross-Validation Without Doing Cross-Validation on Bayesian GBLUP
 #' 
 #' @description Performs a Leave-One-Out Cross-Validation Without Doing Cross-Validation using Gibbs Sampling results.
 #'

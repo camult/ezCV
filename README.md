@@ -49,7 +49,7 @@ Argument      |Description
  
  ``` 
 
-# `cvBGBLUP`: Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+# `cvBGBLUP`: Cross-Validation Without Doing Cross-Validation on Bayesian GBLUP
 
 ## Description
 

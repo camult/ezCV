@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{cvBGBLUP}
 \alias{cvBGBLUP}
-\title{Cross-Validation Without Doing Cross-Validation on Gibbs Sampling}
+\title{Cross-Validation Without Doing Cross-Validation on Bayesian GBLUP}
 \usage{
 cvBGBLUP(n, Y, g, K, Vg, Ve)
 }

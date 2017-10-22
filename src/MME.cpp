@@ -507,7 +507,7 @@ arma::mat cvBayes(arma::mat Y, arma::mat B, arma::mat X, arma::vec varE){
 
 
 
-//' @title Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+//' @title Cross-Validation Without Doing Cross-Validation on Bayesian GBLUP
 //' 
 //' @description Performs a Leave-One-Out Cross-Validation Without Doing Cross-Validation using Gibbs Sampling results.
 //'

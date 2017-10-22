@@ -506,4 +506,46 @@ arma::mat cvBayes(arma::mat Y, arma::mat B, arma::mat X, arma::vec varE){
 }
 
 
+
+//' @title Cross-Validation Without Doing Cross-Validation on Gibbs Sampling
+//' 
+//' @description Performs a Leave-One-Out Cross-Validation Without Doing Cross-Validation using Gibbs Sampling results.
+//'
+//' @param n is the number of observations. If length(n) > 1, the length is taken to be the number required.
+//' @param Y is a phenotypic matrix with n rows and 1 column.
+//' @param g is vector with the BLUP solution for the genetic values.
+//' @param K is a relationship matrix with m rows and m columns.
+//' @param Vg is the posterior mean of the genetic variance.
+//' @param Ve is the posterior mean of the residual variance.
+//' 
+//' @examples
+//' ## Not to run ##
+//' 
+//' ## cvBGBLUP(n=nSamp, Y=y, g=gHat, K=G, Vg=gVAR, Ve=eVAR)
+//'
+//' ## End(Not run)
+//' 
+//' @useDynLib ezCV
+//'  
+//' @export cvBGBLUP
+// [[Rcpp::export]]
+arma::mat cvBGBLUP(int n, arma::vec Y, arma::vec g, arma::mat K, double Vg, double Ve) {
+  double lambda = Ve/Vg;
+  int nIDs = K.n_rows;
+  arma::mat invC = arma::inv_sympd(arma::eye(nIDs, nIDs) + arma::inv_sympd(K)*lambda);
+  arma::mat sig = invC*Ve;
+  arma::mat rng = arma::randn(n, nIDs);
+  arma::mat gs = arma::repmat(g, 1, n).t() + rng * arma::chol(sig);
+  arma::mat wis_G(n, nIDs);
+  for(int i = 0; i < nIDs; i++) {
+    arma::colvec wi = exp(pow((Y[i]-gs.col(i)),2)/(2.0*Ve))/accu(exp(pow((Y[i]-gs.col(i)),2)/(2.0*Ve)));
+    wis_G.col(i) = wi;
+  }
+  arma::mat yHat = sum(wis_G%gs, 0).t();
+  return yHat;
+}
+
+
+
+ 
  

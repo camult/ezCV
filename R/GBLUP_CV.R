@@ -1,4 +1,4 @@
-#' @title GBLUP and Leave-one-out Cross-validation
+#' @title GBLUP and Leave-one-out Cross-validation.
 #' 
 #' 
 #' @description This function solves univariate linear mixed models by likelihood methods. The optimization methods is based on Efficient Mixed Model Association (Kang et al. 2008).

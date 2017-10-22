@@ -1,0 +1,13 @@
+Package: ezCV
+Type: Package
+Title: Cross-validation without doing cross-validation
+Version: 1.0
+Date: 2017-09-30
+Author: Fernando Brito Lopes
+Maintainer: Fernando Brito Lopes <camult@gmail.com>
+Description: Performs Leave-one-out and Leave-d-out cross-validation without doing cross-validation. Solves univariate linear mixed models by likelihood methods (GBLUP and rrBLUP). The optimization methods is based on Efficient Mixed Model Association (Kang et al. 2008). All functions are written in C++ to speed up computater processes.
+License: GPL-2
+Imports: Rcpp (>= 0.12.9)
+LinkingTo: Rcpp, RcppArmadillo
+NeedsCompilation: yes
+RoxygenNote: 6.0.1

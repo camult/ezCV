@@ -321,7 +321,7 @@ arma::vec LOOCV_DG(arma::mat& y, arma::mat& K, double lambda, arma::vec& g){
   arma::vec yHat(nIDs);
   arma::mat invC = arma::inv_sympd(arma::eye(nIDs, nIDs) + arma::inv_sympd(K)*lambda);
   //arma::vec g = invC*y;
-  for (int nAn = 0; nAn < nIDs; nAn++) {
+  for(unsigned int nAn = 0; nAn < nIDs; nAn++) {
     yHat[nAn] = (g[nAn]-invC(nAn,nAn)*y[nAn])/(1-invC(nAn,nAn));
   }
   return yHat;
@@ -354,7 +354,7 @@ arma::vec kCV_DG(arma::vec& Y, arma::mat& K, double lambda, arma::vec& folds, ar
   arma::vec yHat(nIDs);
   arma::mat invC = arma::inv_sympd(arma::eye(nIDs, nIDs) + arma::inv_sympd(K)*lambda);
   //arma::vec g = invC*Y;
-  for(int fold = 1; fold <= k; fold++) {
+  for(unsigned int fold = 1; fold <= k; fold++) {
     arma::uvec idx = find(folds == fold);
     arma::mat subInvC  = invC.submat(idx,idx);
     int nIdx = subInvC.n_rows;
@@ -451,7 +451,7 @@ arma::vec LOOrrDG(arma::mat& Y, arma::mat& X, arma::mat& B, double lambda){
   arma::mat invC = arma::inv_sympd(X.t()*X + lambda*arma::eye(m, m));
   arma::vec ei = Y - X*B;
   arma::mat h = X*invC*X.t();
-  for (int nAn = 0; nAn < n; nAn++) {
+  for(unsigned int nAn = 0; nAn < n; nAn++) {
     arma::vec betai = B - (invC*trans(X.row(nAn))*ei[nAn] / (1-h(nAn,nAn)));
     yHat = X*betai;
     yHati[nAn] = yHat[nAn];
@@ -485,21 +485,21 @@ arma::mat cvBayes(arma::mat Y, arma::mat B, arma::mat X, arma::vec varE){
   int n = Y.n_rows;
   arma::mat yMAT(n,S);
   arma::mat eMAT(S,n);
-  for(int s = 0; s < S; s++){
+  for(unsigned int s = 0; s < S; s++){
     yMAT.col(s) = Y;
   }
-  for(int i = 0; i < n; i++){
+  for(unsigned int i = 0; i < n; i++){
     eMAT.col(i) = varE;
   }
   arma::mat ssMAT = pow(trans(yMAT - (X*trans(B))),2);
   arma::mat exMat = exp(ssMAT/(2.0*eMAT));
   arma::mat sumLOOP(S,n);
-  for(int s = 0; s < S; s++){
+  for(unsigned int s = 0; s < S; s++){
     sumLOOP.row(s) = sum(exp(ssMAT/(2.0*varE[s])),0);
   }
   arma::mat w = exMat/sumLOOP;
   arma::mat yHat(n,1);
-  for(int i = 0; i < n; i++){
+  for(unsigned int i = 0; i < n; i++){
     yHat.row(i) = X.row(i) * trans(sum(B.each_col()%w.col(i),0));
   }
   return yHat;
@@ -537,7 +537,7 @@ arma::mat cvBGBLUP(int n, arma::vec Y, arma::vec g, arma::mat K, double Vg, doub
   arma::mat rng = arma::randn(n, nIDs);
   arma::mat gs = arma::repmat(g, 1, n).t() + rng * arma::chol(sig);
   arma::mat wis_G(n, nIDs);
-  for(int i = 0; i < nIDs; i++) {
+  for(unsigned int i = 0; i < nIDs; i++) {
     arma::colvec wi = exp(pow((Y[i]-gs.col(i)),2)/(2.0*Ve))/accu(exp(pow((Y[i]-gs.col(i)),2)/(2.0*Ve)));
     wis_G.col(i) = wi;
   }

@@ -22,7 +22,7 @@
 #' @examples
 #' ## Not to run ##
 #' 
-#' ## RRBLUP_CV(Phen ~ Effect, data=Data, K=M)
+#' ## RRBLUP_CV(Phen ~ Effect, data=Data, Z=M)
 #'
 #' ## End(Not run)
 #' 
@@ -49,6 +49,14 @@ RRBLUP_CV <- function(formula, data, Z, CV=TRUE, folds=NULL, weights=NULL){
   phenName <- as.character(form[[2]])
   Y <- as.numeric(data[, phenName])
   not.miss <- which(!is.na(Y))
+  miss <- which(is.na(Y))
+  Z.miss <- t(as.matrix(Z[miss, ]))
+  rownames(Z.miss) <- rownames(Z)[miss]
+  gid <- rownames(Z)
+  mid <- colnames(Z)
+  Z <- as.matrix(Z[not.miss, ])
+  X <- model.matrix(form, model.frame(form, data, na.action=function(x)x))
+  X <- as.matrix(X[not.miss, ])
   resid <- rep(NA, length(Y))
   if (length(not.miss) < length(Y)) {
     data <- data[not.miss, ]
@@ -58,16 +66,10 @@ RRBLUP_CV <- function(formula, data, Z, CV=TRUE, folds=NULL, weights=NULL){
     }
   }
   n <- length(Y)
-  X <- model.matrix(form, data = data)
   not.miss.gid <- as.character(unique(data[, 1]))
-  gid <- rownames(Z)
-  mid <- colnames(Z)
   ix.pheno <- match(not.miss.gid, gid)
   miss.pheno.gid <- which(is.na(ix.pheno))
-  if (length(miss.pheno.gid) > 0) { stop(paste("The following lines have phenotypes but no genotypes:", paste(not.miss.gid[miss.pheno.gid], collapse = " "))) }
   miss.gid <- setdiff(gid, not.miss.gid)
-  ix <- c(ix.pheno, match(miss.gid, gid))
-  Z <- Z[ix,]
   if (!is.null(weights)) {
     sqrt.weights <- sqrt(weights)
     X <- X/sqrt.weights
@@ -78,8 +80,11 @@ RRBLUP_CV <- function(formula, data, Z, CV=TRUE, folds=NULL, weights=NULL){
   cat("Running Ridge Regression Model...\n")
   UVM <- RRBLUP(Y, X, Z)
   rownames(UVM$u) <- mid
-  GEBV <- Z %*% UVM$u
-  resid[not.miss] <- Y - X %*% UVM$beta - GEBV
+  GEBV.noMISS <- Z %*% UVM$u
+  GEBV.MISS <- Z.miss %*% UVM$u
+  GEBV <- rbind(GEBV.MISS, GEBV.noMISS)
+  GEBV <- as.matrix(GEBV[order(match(rownames(GEBV), gid)),])
+  resid[not.miss] <- Y - X %*% UVM$beta - GEBV.noMISS
   pred <- as.matrix(GEBV + as.numeric(colMeans(X)%*%UVM$beta))
   yHat <- as.matrix(Y - (X%*%UVM$beta))
   if(isTRUE(CV)){

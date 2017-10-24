@@ -75,10 +75,6 @@ GBLUP_CV <- function(formula, data, K, CV=TRUE, folds=NULL, weights=NULL){
     X <- X/sqrt.weights
     Y <- Y/sqrt.weights
     Z <- Z/sqrt.weights
-  } else {
-    X <- X
-    Y <- Y
-    Z <- Z
   }
   Z <- cbind(Z, matrix(0, n, nrow(K) - v))
   Y <- as.matrix(Y)

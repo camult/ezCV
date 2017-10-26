@@ -28,7 +28,7 @@ This function solves univariate linear mixed models by likelihood methods. The o
 \examples{
 ## Not to run ##
 
-## RRBLUP_CV(Phen ~ Effect, data=Data, K=M)
+## RRBLUP_CV(Phen ~ Effect, data=Data, Z=M)
 
 ## End(Not run)
 

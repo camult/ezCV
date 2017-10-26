@@ -131,7 +131,7 @@ Argument      |Description
 ```r 
  ## Not to run ##
  
- ## RRBLUP_CV(Phen ~ Effect, data=Data, K=M)
+ ## RRBLUP_CV(Phen ~ Effect, data=Data, Z=M)
  
  ## End(Not run)
  

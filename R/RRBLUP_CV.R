@@ -81,8 +81,12 @@ RRBLUP_CV <- function(formula, data, Z, CV=TRUE, folds=NULL, weights=NULL){
   UVM <- RRBLUP(Y, X, Z)
   rownames(UVM$u) <- mid
   GEBV.noMISS <- Z %*% UVM$u
-  GEBV.MISS <- Z.miss %*% UVM$u
-  GEBV <- rbind(GEBV.MISS, GEBV.noMISS)
+  if(length(miss)>0){
+    GEBV.MISS <- Z.miss %*% UVM$u
+    GEBV <- rbind(GEBV.MISS, GEBV.noMISS)
+  } else {
+    GEBV <- GEBV.noMISS
+  }
   GEBV <- as.matrix(GEBV[order(match(rownames(GEBV), gid)),])
   resid[not.miss] <- Y - X %*% UVM$beta - GEBV.noMISS
   pred <- as.matrix(GEBV + as.numeric(colMeans(X)%*%UVM$beta))

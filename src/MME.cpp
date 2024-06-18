@@ -287,7 +287,7 @@ Rcpp::List MME(const arma::mat& y, const arma::mat& X,
   double Vu = sum(eta%eta/(eigval+delta))/df;
   double Ve = delta*Vu;
   arma::colvec PEV = arma::diagvec(inv_sympd(Z.t()*Z + ((Ve/Vu)*inv_sympd(K))))*Ve;
-  double ll = -0.5*(double(optRes["objective"])+df+df*log(2*PI/df));
+  double ll = -0.5*(double(optRes["objective"])+df+df*log(2*3.1415926535897932384626/df));
   return Rcpp::List::create(Rcpp::Named("Vu")=Vu,
                             Rcpp::Named("Ve")=Ve,
                             Rcpp::Named("beta")=beta,
@@ -415,7 +415,7 @@ Rcpp::List RRBLUP(const arma::mat& y, const arma::mat& X, const arma::mat& M){
   arma::mat u = M.t()*(Hinv*(y-X*beta));
   double Vu = sum(eta%eta/(eigval+delta))/df;
   double Ve = delta*Vu;
-  double ll = -0.5*(double(optRes["objective"])+df+df*log(2*PI/df));
+  double ll = -0.5*(double(optRes["objective"])+df+df*log(2*3.1415926535897932384626/df));
   return Rcpp::List::create(Rcpp::Named("Vu")=Vu,
                             Rcpp::Named("Ve")=Ve,
                             Rcpp::Named("beta")=beta,
